@@ -71,8 +71,10 @@
         [self.pickerView reloadComponent:1 refresh:refresh];
     }
     if (component != 2) {
-        BOOL refresh = [self setDayListWithComponent:component dateComponents:dateComponents refresh:false];
-        [self.pickerView reloadComponent:2 refresh:refresh];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            BOOL refresh = [self setDayListWithComponent:component dateComponents:dateComponents refresh:true];
+            [self.pickerView reloadComponent:2 refresh:refresh];
+        });
     }
 }
 @end
